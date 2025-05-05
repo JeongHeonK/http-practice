@@ -1,19 +1,33 @@
 import http from "http";
+import path from "path";
 
-const contents = `HTTP response
-1. basic
-  1.1 어쩌다 이것까지
-  1.2 이럴줄 알았음 풀스택까진 안 했지
+//type module로 실행 시, 하기 코드 필요
+import fs from "fs";
+import { fileURLToPath } from "url";
 
-2. Web Browser
-  2.1 Content Negotiation
-  2.2 Cookie
-`;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+// ES 모듈로 실행될 경어 CommonJs 전용 전역 변수 사용 불가(__dirname, __filename 등)
+// 이래서 node 사용할 때 require문 사용 한 듯.
+// 깊게 안 해보고 깔짝 했으니 알리가 있나..
+
+const staticServer = (req, res) => {
+  const filePath = path.join(__dirname, "public", req.url);
+
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      res.write("Not Found\n");
+      res.end();
+      return;
+    }
+
+    res.write(data);
+    res.end();
+  });
+};
 
 const handler = (req, res) => {
-  res.write(contents);
-  // 종료 응답을 클라이언트에게 전달
-  res.end();
+  return staticServer(req, res);
 };
 
 const server = http.createServer(handler);
