@@ -1,6 +1,16 @@
 import http from "http";
 
-const options = new URL("http://localhost:3000");
+// node 명령어에 접근 가능함
+// process.env 이런 것들이 모두 Node 전역 변수 였구나.
+// 이제야 알았구나..ㅎ
+const url = process.argv[2];
+
+if (!url) {
+  console.error("Usage: pnpm run client <url>");
+  process.exit();
+}
+
+const options = new URL(`http://localhost:3000/${url}`);
 
 const handler = (res) => {
   const data = [];
