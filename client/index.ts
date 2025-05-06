@@ -1,4 +1,4 @@
-import http from "http";
+import http, { IncomingMessage } from "http";
 
 // node 명령어에 접근 가능함
 // process.env 이런 것들이 모두 Node 전역 변수 였구나.
@@ -12,10 +12,10 @@ if (!url) {
 
 const options = new URL(`http://localhost:3000/${url}`);
 
-const handler = (res) => {
-  const data = [];
+const handler = (res: IncomingMessage) => {
+  const data: string[] = [];
 
-  res.on("data", (chunk) => {
+  res.on("data", (chunk: string) => {
     data.push(chunk.toString());
   });
 
