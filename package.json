@@ -5,8 +5,9 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"server": "node server",
-		"client": "node client"
+		"dev": "tsc-watch",
+		"server": "tsc-watch --onSuccess \"node dist/server\"",
+		"client": "tsc-watch --onSuccess \"node dist/client\""
 	},
 	"keywords": [],
 	"author": "",
@@ -15,6 +16,7 @@
 	"type": "module",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
+		"tsc-watch": "^6.2.1",
 		"typescript": "^5.8.3"
 	}
 }
