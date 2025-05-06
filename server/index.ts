@@ -1,9 +1,9 @@
-import http, { IncomingMessage, ServerResponse } from "http";
-import path from "path";
+import http, { type IncomingMessage, type ServerResponse } from 'node:http';
+import path from 'node:path';
 
 //type module로 실행 시, 하기 코드 필요
-import fs from "fs";
-import { fileURLToPath } from "url";
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,25 +12,25 @@ const __dirname = path.dirname(__filename);
 // 깊게 안 해보고 깔짝 했으니 알리가 있나..
 
 const staticServer = (req: IncomingMessage, res: ServerResponse) => {
-  if (!req.url) return;
+	if (!req.url) return;
 
-  const filePath = path.join(__dirname, "public", req.url);
+	const filePath = path.join(__dirname, 'public', req.url);
 
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      res.write("Not Found\n");
-      res.end();
-      return;
-    }
+	fs.readFile(filePath, (err, data) => {
+		if (err) {
+			res.write('Not Found\n');
+			res.end();
+			return;
+		}
 
-    res.write(data);
-    res.end();
-  });
+		res.write(data);
+		res.end();
+	});
 };
 
 const handler: http.RequestListener = (req, res) => {
-  return staticServer(req, res);
+	return staticServer(req, res);
 };
 
 const server = http.createServer(handler);
-server.listen(3000, () => console.log("server started"));
+server.listen(3000, () => console.log('server started'));
