@@ -1,4 +1,4 @@
-import http from "http";
+import http, { IncomingMessage, ServerResponse } from "http";
 import path from "path";
 
 //type module로 실행 시, 하기 코드 필요
@@ -11,7 +11,9 @@ const __dirname = path.dirname(__filename);
 // 이래서 node 사용할 때 require문 사용 한 듯.
 // 깊게 안 해보고 깔짝 했으니 알리가 있나..
 
-const staticServer = (req, res) => {
+const staticServer = (req: IncomingMessage, res: ServerResponse) => {
+  if (!req.url) return;
+
   const filePath = path.join(__dirname, "public", req.url);
 
   fs.readFile(filePath, (err, data) => {
@@ -26,7 +28,7 @@ const staticServer = (req, res) => {
   });
 };
 
-const handler = (req, res) => {
+const handler: http.RequestListener = (req, res) => {
   return staticServer(req, res);
 };
 
