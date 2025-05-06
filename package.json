@@ -1,16 +1,22 @@
 {
-  "name": "http",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node server",
-    "client": "node client"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.10.0",
-  "type": "module"
+	"name": "http",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "tsc-watch",
+		"server": "tsc-watch --onSuccess \"node dist/server\"",
+		"client": "tsc-watch --onSuccess \"node dist/client\""
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@10.10.0",
+	"type": "module",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"tsc-watch": "^6.2.1",
+		"typescript": "^5.8.3"
+	}
 }
